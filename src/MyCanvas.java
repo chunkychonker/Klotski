@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 /**
- * Created by diling on 12/20/20.
+ * Created by chunkychonker on 12/20/20.
  */
 public class MyCanvas extends JComponent implements
         MouseListener, MouseMotionListener {
@@ -14,12 +14,12 @@ public class MyCanvas extends JComponent implements
     private Block[] createBlocks() {
         return new Block[]{
                 new Block(1, 0, 2, 2, Color.red),
-                //new Block(0, 0, 1, 2, Color.yellow),
+                new Block(0, 0, 1, 2, Color.yellow),
                 new Block(3, 0, 1, 2, Color.yellow),
                 new Block(0, 2, 1, 2, Color.yellow),
-                //new Block(1, 2, 2, 1, Color.yellow),
-                //new Block(3, 2, 1, 2, Color.yellow),
-                //new Block(0, 4, 1, 1, Color.yellow),
+                new Block(1, 2, 2, 1, Color.yellow),
+                new Block(3, 2, 1, 2, Color.yellow),
+                new Block(0, 4, 1, 1, Color.yellow),
                 new Block(1, 3, 1, 1, Color.yellow),
                 new Block(2, 3, 1, 1, Color.yellow),
                 new Block(3, 4, 1, 1, Color.yellow)
@@ -58,9 +58,6 @@ public class MyCanvas extends JComponent implements
     @Override
     public void mouseClicked(MouseEvent e) {
         System.out.println(String.format("mouseClicked, x = %d, y = %d", e.getX(), e.getY()));
-
-
-
     }
 
 
@@ -70,15 +67,10 @@ public class MyCanvas extends JComponent implements
 
 
         if (firstMousePressed) {
-
             System.out.println(startTime);
-
             startTime = System.currentTimeMillis();
-
             firstMousePressed = false;
         }
-
-
 
         for (Block block : blocks) {
             if (block.contains(e.getX(), e.getY())) {
@@ -86,9 +78,6 @@ public class MyCanvas extends JComponent implements
                 currentBlock = block;
                 capturedX = e.getX();
                 capturedY = e.getY();
-
-
-
             }
         }
     }
@@ -101,11 +90,6 @@ public class MyCanvas extends JComponent implements
 
             long elapsedTime = System.currentTimeMillis() - startTime;
             long elapsedSeconds = elapsedTime / 1000;
-
-            System.out.println(elapsedSeconds);
-            System.out.println(elapsedTime);
-            System.out.println(startTime);
-
 
             String message = String.format("Game Over, Your score was %d. Restart?", elapsedSeconds);
 
@@ -121,9 +105,6 @@ public class MyCanvas extends JComponent implements
                 blocks = createBlocks();
                 repaint();
                 firstMousePressed = true;
-
-
-
             }
         }
     }
@@ -145,7 +126,6 @@ public class MyCanvas extends JComponent implements
         int deltaX = e.getX() - capturedX;
         int deltaY = e.getY() - capturedY;
 
-        // if motion is too small, exit and do nothing.
         if (Math.abs(deltaX) < Block.sideUnit && Math.abs(deltaY) <Block.sideUnit) {
             return;
         }
